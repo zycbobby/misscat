@@ -1,0 +1,66 @@
+/**
+ * This is the main application stylesheet. It should include or import all
+ * stylesheets used throughout the application as this is the only stylesheet in
+ * the Grunt configuration that is automatically processed.
+ */
+/**
+ * First, we include the Twitter Bootstrap LESS files. Only the ones used in the
+ * project should be imported as the rest are just wasting space.
+ */
+/**
+ * This is our main variables file. We must include it last so we can overwrite any variable
+ * definitions in our imported stylesheets.
+ */
+
+@import '../../vendor/bootstrap/less/bootstrap.less';
+@import '../../vendor/flat-ui/less/flat-ui.less';
+@import 'elements.less';
+@import 'variables.less';
+
+
+.unselectable {
+  .user-select(none);
+}
+
+#content {
+  padding-top: 70px;
+}
+
+#post-msg {
+  resize: none;
+  height: 200px;
+  background-color: @bg-color;
+  border: none;
+  color: lawngreen;
+}
+
+.reply-div {
+  margin-top: 10px;
+}
+
+a {
+  cursor: pointer;
+}
+
+pre {
+  border: none;
+}
+
+.login-div {
+  padding: 24px 23px 20px;
+  .border-radius(6px, 6px, 6px, 6px);
+
+  .login-field-icon {
+    color: @ico-color;
+    font-size: 16px;
+    position: absolute;
+    right: 15px;
+    top: 3px;
+    .transition-duration(@default-transition-duration);
+
+    &:hover {
+      color: darken(@ico-color, 20%);
+    }
+  }
+}
+

@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-xs-7">
+        <p>
+            <!--<h5>Test中文</h5>-->
+            <h5>你好，我是Zuozuo</h5>
+            <h5>之所以是MissCat.sinaapp.com</h5>
+            <h5>不仅仅是因为猫小姐</h5>
+            <h5>而且，她是我每天都想念的猫</h5>
+            <h5>这是我们的故事</h5>
+            <h5>我不会写php</h5>
+            <h5>我只爱Java和璐琪</h5>
+        </p>
+    </div>
+
+
+    <div class="col-xs-5 login-div">
+        <h3 class="footer-title">Login</h3>
+
+        <div class="form-group">
+            <input type="text" class="form-control login-field" value="" placeholder="LukiWu" ng-disabled="true"
+                   id="login-name">
+            <label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : loginFail }">
+            <input type="password" class="form-control login-field" ng-model="accessToken.pwd" placeholder="Password"
+                   id="login-pass" ng-keypress="enter($event)">
+            <label class="login-field-icon fui-lock" for="login-pass"></label>
+        </div>
+        <a class="btn btn-primary btn-lg btn-block" ng-click="login()">Log in</a>
+    </div>
+
+</div>

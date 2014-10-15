@@ -1,0 +1,11 @@
+*.sw*
+*~
+build/
+bin/
+node_modules/
+vendor/
+.idea/
+.travis.yml
+coverage/
+Gruntfile-ng-old.js
+Gruntfile.js.bak

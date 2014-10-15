@@ -1,0 +1,30 @@
+<blockquote class="col-md-12">
+    <p class="small">{{blog.post_time}}</p>
+
+    <pre class="lead">{{blog.text_content}}</pre>
+    <hr/>
+    <a class="col-md-12" ng-click="toggleReply()">Reply({{blog.replies.length}})</a>
+
+
+    <div class="col-md-12" ng-if="showReply">
+        <div ng-repeat="reply in blog.replies" ng-if="showReply">
+            <p class="lead">{{reply.text_content}}</p>
+        </div>
+    </div>
+
+    <div class="col-md-12 reply-div" ng-if="showReply">
+        <div role="form" >
+            <div class="form-group">
+                <input type="text" class="form-control input-lg" ng-model="commentMsg.txt"/>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg" ng-disabled="commentMsg.txt.length === 0" ng-click="sendNewComment(blog.text_id)" ng-keypress="enter(blog.text_id)">
+                    Submit
+                </button>
+            </div>
+        </div>
+    </div>
+
+</blockquote>
+
+<!--<div class="btn btn-block btn-lg btn-info col-xs-1" ng-click="toggleReply()">Reply ({{blog.replies.length}})</div>-->
