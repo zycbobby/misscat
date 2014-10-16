@@ -28,4 +28,14 @@ angular.module('myApp.controller.main', [
   };
 
   $scope.load();
+
+  $scope.sendNewPostMsg = function () {
+    blogService.saveOneBlog($scope.postMsg, '0', '0').success(function (data) {
+      $scope.postMsg = "";
+      // refresh the page;commentMsg
+      $scope.load();
+    }).error(function (data) {
+      console.log(data);
+    });
+  };
 });

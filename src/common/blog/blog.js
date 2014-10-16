@@ -142,7 +142,7 @@ angular.module('myApp.service.blog', [])
 
       BlogService.prototype.findOne = function (text_id) {
         var deferred = $q.defer();
-        findAllBlogs().then(function (data) {
+        this.findAllBlogs().then(function (data) {
           for (var i = 0; i < data.data.length; i++) {
             if (data.data[i].text_id === text_id) {
               deferred.resolve({
