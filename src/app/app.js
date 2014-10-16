@@ -2,6 +2,7 @@ angular.module('myApp', [
   'templates-app',
   'templates-common',
   'ui.router',
+  'ngCookies',
   'myApp.controller.login',
   'myApp.controller.main',
   'myApp.controller.recent',
@@ -13,34 +14,38 @@ angular.module('myApp', [
   .constant('debugState', false)
   .config(function ($urlRouterProvider, blogServiceProvider, debugState) {
 
-  $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/login');
 
-  blogServiceProvider.setDebugState(debugState);
+    blogServiceProvider.setDebugState(debugState);
 
-}).run(function ($rootScope, $state, AuthObj) {
+  })
+  .run(function ($rootScope, $state, $cookieStore, AuthObj, debugState) {
 
-  $rootScope.accessToken = new AuthObj('');
+    $rootScope.debugState = debugState;
 
-  $rootScope.toLogin = function () {
-    $state.go('login', {}, {'location': true});
-  };
+    var t = $cookieStore.get('token') || { 'pwd': ''};
+    $rootScope.accessToken = new AuthObj(t.pwd);
 
-}).controller('AppCtrl', function ($scope, $state) {
+    $rootScope.toLogin = function () {
+      $state.go('login', {}, {'location': true});
+    };
 
-  $scope.$on('$stateChangeSuccess', function (event, toState) {
-    if ($scope.accessToken.fail) {
-      event.preventDefault();
-      $scope.toLogin();
-    } else {
-      if (angular.isDefined(toState.data.pageTitle)) {
-        $scope.pageTitle = toState.data.pageTitle || ' ';
+  }).controller('AppCtrl', function ($scope, $state) {
+
+    $scope.$on('$stateChangeSuccess', function (event, toState) {
+      if ($scope.accessToken.fail) {
+        event.preventDefault();
+        $scope.toLogin();
+      } else {
+        if (angular.isDefined(toState.data.pageTitle)) {
+          $scope.pageTitle = toState.data.pageTitle || ' ';
+        }
       }
-    }
-  });
+    });
 
-  $scope.exit = function() {
-    $scope.accessToken.destroy();
-    $scope.toLogin();
-  };
-});
+    $scope.exit = function () {
+      $scope.accessToken.destroy();
+      $scope.toLogin();
+    };
+  });
 

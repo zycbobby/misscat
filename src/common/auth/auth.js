@@ -1,5 +1,7 @@
-angular.module('myApp.service.auth', [])
-  .factory('AuthObj', function() {
+angular.module('myApp.service.auth', [
+  'ngCookies'
+])
+  .factory('AuthObj', function($cookieStore) {
 
     var _refreshToken = function() {
       var self = this;
@@ -12,6 +14,8 @@ angular.module('myApp.service.auth', [])
       } else {
         self.fail = true;
       }
+      console.log('into token ' + self);
+      $cookieStore.put('token', self);
     };
 
     function AuthObj(pwd) {

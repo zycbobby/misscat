@@ -1,14 +1,15 @@
 <div class="row">
     <div class="col-xs-7">
-        <p>
-            <!--<h5>Test中文</h5>-->
-            <h5>你好，我是Zuozuo</h5>
-            <h5>之所以是MissCat.sinaapp.com</h5>
-            <h5>不仅仅是因为猫小姐</h5>
-            <h5>而且，她是我每天都想念的猫</h5>
-            <h5>这是我们的故事</h5>
-            <h5>我不会写php</h5>
-            <h5>我只爱Java和璐琪</h5>
+
+            <h5 ng-if="debugState">Test中文</h5>
+
+            <h5 ng-if="!debugState">你好，我是Zuozuo</h5>
+            <h5 ng-if="!debugState">之所以是MissCat.sinaapp.com</h5>
+            <h5 ng-if="!debugState">不仅仅是因为猫小姐</h5>
+            <h5 ng-if="!debugState">而且，她是我每天都想念的猫</h5>
+            <h5 ng-if="!debugState">这是我们的故事</h5>
+            <h5 ng-if="!debugState">我不会写php</h5>
+            <h5 ng-if="!debugState">我只爱Java和璐琪</h5>
         </p>
     </div>
 

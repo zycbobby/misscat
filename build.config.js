@@ -67,9 +67,8 @@ module.exports = {
     js: [
       'vendor/jquery/jquery.js',
       'vendor/angular/angular.js',
-      'vendor/angular-bootstrap/ui-bootstrap',
       'vendor/angular-ui-router/release/angular-ui-router.js',
-      'vendor/angular-local-storage/dist/angular-local-storage.js'
+      'vendor/angular-cookies/angular-cookies.js'
     ],
     css: [
 
