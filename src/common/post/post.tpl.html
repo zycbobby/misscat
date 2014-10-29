@@ -8,6 +8,7 @@
 
     <div class="col-md-12" ng-if="showReply">
         <div ng-repeat="reply in blog.replies" ng-if="showReply">
+            {{ reply.post_time }}
             <p class="lead">{{reply.text_content}}</p>
         </div>
     </div>
