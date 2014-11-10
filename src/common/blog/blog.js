@@ -52,41 +52,28 @@ angular.module('myApp.service.blog', [])
         var self = this;
         var deferred = $q.defer();
         var blogs = [];
-        if (debug) {
-          $http.get("/json/blog.json").success(function (data) {
-            for (var i = 0; i < data.length; i++) {
-              if (data[i].text_type === '0') {
-                blogs.push(new Blog(data[i].text_id, data[i].text_content, data[i].text_type, data[i].media_type, data[i].post_time));
+        var url = debug ? "/json/blog.json" : "/php/blog.php";
+
+        $http.get(url)
+          .then(function (data) {
+            data.data.forEach(function (item, index) {
+              if (item.text_type === '0') {
+                blogs.push(new Blog(item.text_id, item.text_content, item.text_type, item.media_type, item.post_time));
               }
-            }
-            self.findAllComment().success(function (commentData) {
-              for (var i = 0; i < blogs.length; i++) {
-                blogs[i].extractMyReply(commentData);
-              }
+            });
+            return blogs;
+          })
+          .then(function (blogs) {
+            self.findAllComment().then(function (commentData) {
+              blogs.forEach(function (item) {
+                item.extractMyReply(commentData.data);
+              });
               deferred.resolve({
                 status: "ok",
                 "data": blogs
               });
             });
           });
-        } else {
-          $http.get("/php/blog.php").success(function (data) {
-            for (var i = 0; i < data.length; i++) {
-              if (data[i].text_type === '0') {
-                blogs.push(new Blog(data[i].text_id, data[i].text_content, data[i].text_type, data[i].media_type, data[i].post_time));
-              }
-            }
-            self.findAllComment().success(function (commentData) {
-              for (var i = 0; i < blogs.length; i++) {
-                blogs[i].extractMyReply(commentData);
-              }
-              deferred.resolve({
-                status: "ok",
-                "data": blogs
-              });
-            });
-          });
-        }
 
         return deferred.promise;
       };
@@ -94,32 +81,27 @@ angular.module('myApp.service.blog', [])
       BlogService.prototype.findAllMarriageBlogs = function () {
         var deferred = $q.defer();
         var blogs = [];
-        if (debug) {
-          $http.get("/json/blog.json").success(function (data) {
-            for (var i = 0; i < data.length; i++) {
-              if (data[i].text_type === '1') {
-                blogs.push(new Blog(data[i].text_id, data[i].text_content, data[i].text_type, data[i].media_type, data[i].post_time));
+        var url = debug ? "/json/blog.json" : "/php/blog.php";
+        $http.get(url)
+          .then(function (data) {
+            data.data.forEach(function (item, index) {
+              if (item.text_type === '1') {
+                blogs.push(new Blog(item.text_id, item.text_content, item.text_type, item.media_type, item.post_time));
               }
-            }
-            deferred.resolve({
-              status: "ok",
-              "data": blogs
+            });
+            return blogs;
+          })
+          .then(function (blogs) {
+            self.findAllComment().then(function (commentData) {
+              blogs.forEach(function (item) {
+                item.extractMyReply(commentData.data);
+              });
+              deferred.resolve({
+                status: "ok",
+                "data": blogs
+              });
             });
           });
-        }
-        else {
-          $http.get("/php/blog.php").success(function (data) {
-            for (var i = 0; i < data.length; i++) {
-              if (data[i].text_type === '1') {
-                blogs.push(new Blog(data[i].text_id, data[i].text_content, data[i].text_type, data[i].media_type, data[i].post_time));
-              }
-            }
-            deferred.resolve({
-              status: "ok",
-              "data": blogs
-            });
-          });
-        }
 
         return deferred.promise;
       };
@@ -143,23 +125,21 @@ angular.module('myApp.service.blog', [])
       BlogService.prototype.findOne = function (text_id) {
         var deferred = $q.defer();
         this.findAllBlogs().then(function (data) {
-          for (var i = 0; i < data.data.length; i++) {
-            if (data.data[i].text_id === text_id) {
+          data.data.forEach(function(item){
+            if (item.text_id === text_id) {
               deferred.resolve({
                 status: "ok",
-                "data": data.data[i]
+                "data": item
               });
             }
-          }
+          });
         });
         return deferred.promise;
       };
 
       BlogService.prototype.findAllComment = function () {
-        if (debug) {
-          return $http.get("/json/comment.json");
-        }
-        return $http.get("/php/comment.php");
+        var url = debug ? "/json/comment.json" : "/php/comment.php";
+        return $http.get(url);
       };
 
       return new BlogService();
