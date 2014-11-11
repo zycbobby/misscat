@@ -11,7 +11,8 @@ angular.module('myApp', [
   'myApp.service.blog',
   'myApp.directive.post'
 ])
-  .constant('debugState', false)
+  .constant('debugState', true)
+  .constant('async', async)
   .config(function ($urlRouterProvider, blogServiceProvider, debugState) {
 
     $urlRouterProvider.otherwise('/login');
@@ -19,9 +20,11 @@ angular.module('myApp', [
     blogServiceProvider.setDebugState(debugState);
 
   })
-  .run(function ($rootScope, $state, $cookieStore, AuthObj, debugState) {
+  .run(function ($rootScope, $state, $cookieStore, AuthObj, debugState, async) {
 
     $rootScope.debugState = debugState;
+
+    $rootScope.async = async;
 
     var t = $cookieStore.get('token') || { 'pwd': ''};
     $rootScope.accessToken = new AuthObj(t.pwd);

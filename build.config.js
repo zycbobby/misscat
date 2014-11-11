@@ -68,7 +68,8 @@ module.exports = {
       'vendor/jquery/jquery.js',
       'vendor/angular/angular.js',
       'vendor/angular-ui-router/release/angular-ui-router.js',
-      'vendor/angular-cookies/angular-cookies.js'
+      'vendor/angular-cookies/angular-cookies.js',
+      'vendor/async/lib/async.js'
     ],
     css: [
 
