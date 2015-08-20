@@ -4,6 +4,7 @@
     <title>Miss Cat - {{pageTitle}}</title>
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
     <link rel="stylesheet" type="text/css" href="<%= file %>"/>
     <% }); %>
@@ -33,19 +34,6 @@
                 <li><a href="index.html#/login" ng-click="exit()">Exit</a></li>
             </ul>
         </div>
-    </div>
-</div>
-<div class="row" style="padding-top: 70px;">
-    <div class="col-xs-6 col-xs-offset-3">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- 欢迎来到Misscat -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-2963477712938485"
-             data-ad-slot="4032418251"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
     </div>
 </div>
 <div id="content" class="container" ui-view="main">
