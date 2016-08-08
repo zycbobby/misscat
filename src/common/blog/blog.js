@@ -16,7 +16,7 @@ angular.module('myApp.service.blog', [])
 
     Blog.prototype.extractMyReply = function (allReplies) {
       for (var i = 0; i < allReplies.length; i++) {
-        if (allReplies[i].reply_to === this.text_id) {
+        if (allReplies[i].text_id === this.text_id) {
           this.replies.push(allReplies[i]);
         }
       }
@@ -52,12 +52,12 @@ angular.module('myApp.service.blog', [])
         var self = this;
         var deferred = $q.defer();
         var blogs = [];
-        var url = debug ? "/json/blog.json" : "/php/blog.php";
+        var url = debug ? "/blogs" : "/blogs";
 
         $http.get(url)
           .then(function (data) {
             data.data.forEach(function (item, index) {
-              if (item.text_type === '0') {
+              if (item.text_type === 0) {
                 blogs.push(new Blog(item.text_id, item.text_content, item.text_type, item.media_type, item.post_time));
               }
             });
@@ -81,11 +81,11 @@ angular.module('myApp.service.blog', [])
       BlogService.prototype.findAllMarriageBlogs = function () {
         var deferred = $q.defer();
         var blogs = [];
-        var url = debug ? "/json/blog.json" : "/php/blog.php";
+        var url = debug ? "/blogs" : "/blogs";
         $http.get(url)
           .then(function (data) {
             data.data.forEach(function (item, index) {
-              if (item.text_type === '1') {
+              if (item.text_type === 1) {
                 blogs.push(new Blog(item.text_id, item.text_content, item.text_type, item.media_type, item.post_time));
               }
             });
@@ -138,7 +138,7 @@ angular.module('myApp.service.blog', [])
       };
 
       BlogService.prototype.findAllComment = function () {
-        var url = debug ? "/json/comment.json" : "/php/comment.php";
+        var url = debug ? "/comments" : "/comments";
         return $http.get(url);
       };
 

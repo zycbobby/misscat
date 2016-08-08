@@ -1,7 +1,7 @@
 <blockquote class="col-md-12">
     <p class="small">{{blog.post_time}}</p>
 
-    <pre class="lead">{{blog.text_content}}</pre>
+    <div class="lead">{{blog.text_content}}</div>
     <hr/>
     <a class="col-md-12" ng-click="toggleReply()">Reply({{blog.replies.length}})</a>
 
@@ -9,7 +9,7 @@
     <div class="col-md-12" ng-if="showReply">
         <div ng-repeat="reply in blog.replies" ng-if="showReply">
             {{ reply.post_time }}
-            <p class="lead">{{reply.text_content}}</p>
+            <p class="lead">{{reply.comment_text}}</p>
         </div>
     </div>
 

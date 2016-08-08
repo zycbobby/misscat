@@ -11,7 +11,7 @@ angular.module('myApp', [
   'myApp.service.blog',
   'myApp.directive.post'
 ])
-  .constant('debugState', true)
+  .constant('debugState', false)
   .constant('async', async)
   .config(function ($urlRouterProvider, blogServiceProvider, debugState) {
 
@@ -51,4 +51,3 @@ angular.module('myApp', [
       $scope.toLogin();
     };
   });
-
