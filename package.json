@@ -13,6 +13,7 @@
     "url": "git@github.com:ngbp/ngbp.git"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "express-validator": "^2.20.8",
     "lodash": "^4.14.1",

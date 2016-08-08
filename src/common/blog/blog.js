@@ -108,17 +108,17 @@ angular.module('myApp.service.blog', [])
 
 
       BlogService.prototype.saveOneBlog = function (postMsg, text_type, media_type) {
-        return $http.post("/php/insert.php", {
-          'blog_content': postMsg,
+        return $http.post("/blogs", {
+          'text_content': postMsg,
           'text_type': text_type,
           'media_type': media_type
         });
       };
 
       BlogService.prototype.saveOneComment = function (text_id, commentMsg) {
-        return $http.post("/php/insert_comment.php", {
+        return $http.post("/comments", {
           'text_id': text_id,
-          'comment_content': commentMsg
+          'comment_text': commentMsg
         });
       };
 

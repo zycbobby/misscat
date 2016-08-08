@@ -8,11 +8,13 @@ const expressValidator = require('express-validator');
 const util = require('util');
 const request = require('request');
 const path = require('path');
-const base = config.base;
+const _ = require('lodash');
 const sequelize = require('./models');
-
+const bodyParser = require('body-parser');
 app.set('json spaces', 4);
-app.use(expressValidator())
+app.use(bodyParser.urlencoded( { extended : false }));
+app.use(bodyParser.json());
+app.use(expressValidator());
 /**
  * show the janus now is running
 **/
@@ -21,14 +23,17 @@ app.get('/blogs', function(req, res) {
   sequelize.blog_text.findAll({order: 'post_time DESC'}).then(jsonResponse(res, 200), handleError(res));
 });
 
+app.post('/blogs', function(req, res) {
+  sequelize.blog_text.create(_.extend({ post_time: Date.now()}, req.body)).then(jsonResponse(res, 200), handleError(res));
+});
+
 app.get('/comments', function(req, res) {
   sequelize.blog_comment.findAll({order: 'comment_time DESC'}).then(jsonResponse(res, 200), handleError(res));
 });
 
-function handleError(req, res, err) {
-  req.logger.error(err);
-  return res.status(500).send(err);
-}
+app.post('/comments', function(req, res) {
+  sequelize.blog_comment.create(_.extend({ comment_time: Date.now()}, req.body)).then(jsonResponse(res, 200), handleError(res));
+});
 
 app.use(express.static('build'));
 app.listen(9000, function () {
@@ -50,3 +55,4 @@ function jsonResponse(res, normalCode) {
     return true;
   }
 }
+
