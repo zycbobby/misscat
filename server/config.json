@@ -7,7 +7,9 @@
       "username": "root",
       "password": "123456",
       "database": "app_misscat"
-    }
+    },
+    "token" : "mvpisstevecurry",
+    "aes": "e7vzfd0G5TMrINKEOsfeWI2Y3foo8FLfV87pS1FCDSA"
   },
   "development_194" : {
     "base": "/home/zycn3580/Code/janus-gateway-remote-controller/recordings"
