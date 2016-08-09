@@ -79,8 +79,9 @@ app.post('/comments', function(req, res) {
 });
 
 app.use(express.static('build'));
-app.listen(9000, function () {
-  console.log('Janus-gateway-remote-controller listening on port 20001!');
+var port = process.env.PORT || 9000
+app.listen(port, function () {
+  console.log(`Janus-gateway-remote-controller listening on port ${port}!`);
 });
 
 
