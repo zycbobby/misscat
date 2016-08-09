@@ -16,46 +16,17 @@ app.use(bodyParser.urlencoded( { extended : false }));
 app.use(bodyParser.json());
 app.use(expressValidator());
 
-var wechat = require('node-wechat')(config.token);
+var wechat = require('wechat');
 
-app.get('/wechat', function(req, res) {
-    //检验 token
-    wechat.checkSignature(req, res);
-    //预处理
-    wechat.handler(req, res);
-
-    //监听文本信息
-    wechat.text(function (data) {
-      var msg = {
-          FromUserName: data.ToUserName,
-          ToUserName: data.FromUserName,
-          Content : data.Content
-      }
-      wechat.send(msg);
-    });
-
-
-    //监听图片信息
-    //wechat.image(function (data) { ... });
-
-    //监听地址信息
-    //wechat.location(function (data) { ... });
-
-    //监听链接信息
-    //wechat.link(function (data) { ... });
-
-    //监听事件信息
-    //wechat.event(function (data) { ... });
-
-    //监听语音信息
-    //wechat.voice(function (data) { ... });
-
-    //监听视频信息
-    //wechat.video(function (data) { ... });
-
-    //监听所有信息
-    //wechat.all(function (data) { ... });
-})
+app.use('/wechat', wechat({
+  token: config.token,
+  appid: config.appid,
+  encodingAESKey: config.aes
+}, function (req, res, next) {
+  // 微信输入信息都在req.weixin上
+  var message = req.weixin;
+  res.reply(message);
+}))
 
 
 /**
