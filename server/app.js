@@ -30,9 +30,10 @@ app.get('/wechat', function(req, res) {
           FromUserName: data.ToUserName,
           ToUserName: data.FromUserName,
           Content : data.Content
-
+      }
       wechat.send(msg);
     });
+
 
     //监听图片信息
     //wechat.image(function (data) { ... });
@@ -55,6 +56,7 @@ app.get('/wechat', function(req, res) {
     //监听所有信息
     //wechat.all(function (data) { ... });
 })
+
 
 /**
  * show the janus now is running
