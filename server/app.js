@@ -25,6 +25,24 @@ app.use('/wechat', wechat({
 }, function (req, res, next) {
   // 微信输入信息都在req.weixin上
   var message = req.weixin;
+  switch(message.MsgType) {
+    case 'text':
+      // just record
+      break;
+    case 'image':
+      var picUrl = message.PicUrl;
+      break;
+    case 'shortvideo':
+      var mediaId = message.MediaId;
+      break;
+    case 'voice':
+      var mediaId = message.MediaId;
+      break;
+    case 'link':
+      var url = message.Url;
+      var description = message.Description;
+      break;
+  }
   res.reply(message);
 }))
 

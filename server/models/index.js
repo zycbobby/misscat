@@ -6,10 +6,9 @@ var fs = require('fs'),
    Sequelize = require('sequelize'),
    lodash = require('lodash'),
    config = require('../config.json')[process.env.NODE_ENV],
-   sequelize = new Sequelize(config.mysql.database, config.mysql.username, config.mysql.password, {
-    host: config.mysql.host,
-    port: config.mysql.port,
-    dialect: "mysql",
+   sequelize = new Sequelize('database', 'username', 'password', {
+    dialect: "sqlite",
+    storage: config.sqlite.storage,
     pool: {
       max: 5,
       min: 0,

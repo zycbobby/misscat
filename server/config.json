@@ -1,15 +1,12 @@
 {
   "development" : {
     "base": "/home/zuo/Runtime/janus-gateway-runnable/bin/recordings",
-    "mysql": {
-      "host": "192.168.1.100",
-      "port": "3306",
-      "username": "root",
-      "password": "123456",
-      "database": "app_misscat"
+    "sqlite": {
+      "storage" : "./blog.db"
     },
     "token" : "mvpisstevecurry",
     "appid" : "wx0c61f2126a11666c",
+    "appsecret": "e67bc39a86647beb40de3666d8460c4f",
     "aes": "e7vzfd0G5TMrINKEOsfeWI2Y3foo8FLfV87pS1FCDSA"
   },
   "development_194" : {
