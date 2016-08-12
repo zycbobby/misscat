@@ -33,6 +33,7 @@ angular.module('myApp', [
       $state.go('login', {}, {'location': true});
     };
 
+    $rootScope.host = location.host;
   }).controller('AppCtrl', function ($scope, $state) {
 
     $scope.$on('$stateChangeSuccess', function (event, toState) {

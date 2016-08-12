@@ -3,7 +3,8 @@ angular.module('myApp.directive.post', [])
     return {
       restrict: 'E',
       scope: {
-        blog: "="
+        blog: "=",
+        host: "="
       },
       controller: function ($scope, blogService) {
         $scope.showReply = false;
