@@ -51,12 +51,10 @@ app.use('/wechat', wechat({
         media_type: 1
       }
       var r = request.get(picUrl).pipe(fs.createWriteStream(`./pictures/${picName}`));
-      r.on('response',  (res) => {
-        sequelize.blog_text.create(blog).then((queryResult)=>{
-          res.reply("已记录");
-        }, (err)=>{
-          res.reply(`记录出错, ${util.inspect(err)}`);
-        });
+      sequelize.blog_text.create(blog).then((queryResult)=>{
+        res.reply("已记录");
+      }, (err)=>{
+        res.reply(`记录出错, ${util.inspect(err)}`);
       });
       break;
     case 'shortvideo':
