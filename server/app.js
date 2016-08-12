@@ -11,6 +11,7 @@ const path = require('path');
 const _ = require('lodash');
 const sequelize = require('./models');
 const bodyParser = require('body-parser');
+const randomstring = require('randomstring');
 app.set('json spaces', 4);
 app.use(bodyParser.urlencoded( { extended : false }));
 app.use(bodyParser.json());
@@ -28,22 +29,59 @@ app.use('/wechat', wechat({
   switch(message.MsgType) {
     case 'text':
       // just record
+      var blog =  {
+        post_time: Date.now(),
+        text_content : message.Content,
+        text_type : 0,
+        media_type: 0
+      }
+      sequelize.blog_text.create(blog).then((queryResult)=>{
+        res.reply("已记录");
+      }, (err)=>{
+        res.reply(`记录出错, ${util.inspect(err)}`);
+      });
       break;
     case 'image':
       var picUrl = message.PicUrl;
+      var picName = randomstring.generate(8) + '.jpg';
+      var blog =  {
+        post_time: Date.now(),
+        text_content : picName,
+        text_type : 0,
+        media_type: 1
+      }
+      var r = request.get(picUrl).pipe(fs.createWriteStream(`./pictures/${picName}`));
+      r.on('response',  (res) => {
+        sequelize.blog_text.create(blog).then((queryResult)=>{
+          res.reply("已记录");
+        }, (err)=>{
+          res.reply(`记录出错, ${util.inspect(err)}`);
+        });
+      });
       break;
     case 'shortvideo':
       var mediaId = message.MediaId;
+      res.reply("暂时无法记录小视频");
       break;
     case 'voice':
       var mediaId = message.MediaId;
+      res.reply("暂时无法记录声音");
       break;
     case 'link':
       var url = message.Url;
-      var description = message.Description;
+      var blog =  {
+        post_time: Date.now(),
+        text_content : message.Description + ':' + url,
+        text_type : 0,
+        media_type: 0
+      }
+      sequelize.blog_text.create(blog).then((queryResult)=>{
+        res.reply("已记录");
+      }, (err)=>{
+        res.reply(`记录出错, ${util.inspect(err)}`);
+      });
       break;
   }
-  res.reply(message);
 }))
 
 
@@ -68,6 +106,7 @@ app.post('/comments', function(req, res) {
 });
 
 app.use(express.static('build'));
+app.use(express.static('pictures'));
 var port = process.env.PORT || 9000
 app.listen(port, function () {
   console.log(`Janus-gateway-remote-controller listening on port ${port}!`);
